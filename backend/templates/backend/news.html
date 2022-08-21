@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <title>News API data</title>
+      {% load static %}
+      <link href="{% static '/css/bootstrap.min.css' %}" rel="stylesheet">
+      <script src="{% static '/js/bootstrap.min.js' %}" style="text/javascript"></script>
+   </head>
+   <body>
+      <br>
+      <div class="container">
+         <nav class="navbar navbar-dark bg-primary">
+            <div class="container-fluid">
+               <a class="navbar-brand">Jinaal's News Window</a>
+            </div>
+         </nav>
+      </div>
+      <br>
+      <!--    category row-->
+      <!--    <div class="container">-->
+      <!--        <div class="row">-->
+      <!--            -->
+      <!--            <div class="col-md-1">-->
+      <!--                <span><a class="btn btn-dark" href="{% url 'backend:news' %}?category=technology">Technology</a></span>-->
+      <!--            </div>-->
+      <!--            <div class="col-md-1">-->
+      <!--                <span><a class="btn btn-dark" href="{% url 'backend:news' %}?category=business">Business</a></span>-->
+      <!--            </div>-->
+      <!--            <div class="col-md-2">-->
+      <!--                <span><a class="btn btn-dark" href="{% url 'backend:news' %}?category=entertainment">Entertainment</a></span>-->
+      <!--            </div>-->
+      <!--            <div class="col-md-1">-->
+      <!--                <span><a class="btn btn-dark" href="{% url 'backend:news' %}?category=health">Health</a></span>-->
+      <!--            </div>-->
+      <!--            <div class="col-md-1">-->
+      <!--                <span><a class="btn btn-dark" href="{% url 'backend:news' %}?category=science">Science</a></span>-->
+      <!--            </div>-->
+      <!--            <div class="col-md-1">-->
+      <!--                <span><a class="btn btn-dark" href="{% url 'backend:news' %}?category=sports">Sports</a></span>-->
+      <!--            </div>-->
+      <!--            <div class="col-md-1">-->
+      <!--                <span><a class="btn btn-dark" href="{% url 'backend:news' %}?category=general">General</a></span>-->
+      <!--            </div>-->
+      <!--        </div>-->
+      <!--    </div>-->
+      <br>
+      <!--    end-->
+      <!--news card-->
+      <div class="center">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-2">
+                  <!--            -->
+                  <div class="row">
+                     <div class="col-auto">
+                        <h5 class="col-form-label">Search By Country</h5>
+                     </div>
+                     <form method="get" action="">
+                        <div class="col-auto">
+                           <input type="text" class="form-control" placeholder="in" name="country">
+                        </div>
+                        <br>
+                        <div class="col-auto">
+                           <button class="btn btn-primary btn-sm" type="submit" value="Search">Search</button>
+                        </div>
+                     </form>
+                  </div>
+                  <div class="row">
+                     <div class="col-auto">
+                        <h5 class="col-form-label">Search By Category</h5>
+                     </div>
+                     <form method="get" action="">
+                        <div class="col-auto">
+                           <input type="text" class="form-control" placeholder="Entertainment" name="category">
+                        </div>
+                        <br>
+                        <div class="col-auto">
+                           <button class="btn btn-primary btn-sm" type="submit" value="Search">Search</button>
+                        </div>
+                     </form>
+                  </div>
+                  <br>
+                  <h5>News Categories</h5>
+                  <ul class="list-group">
+                     <li class="list-group-item"><a href="{% url 'backend:news' %}?category=technology">Technology</a></li>
+                     <li class="list-group-item"><a href="{% url 'backend:news' %}?category=business">Business</a></li>
+                     <li class="list-group-item"><a href="{% url 'backend:news' %}?category=entertainment">Entertainment</a></li>
+                     <li class="list-group-item"><a href="{% url 'backend:news' %}?category=health">Health</a>
+                     <li class="list-group-item"><a href="{% url 'backend:news' %}?category=science">Science</a>
+                     <li class="list-group-item"><a href="{% url 'backend:news' %}?category=sports">Sports</a>
+                     <li class="list-group-item"><a href="{% url 'backend:news' %}?category=general">General</a>
+                  </ul>
+                  <!--            -->
+               </div>
+               <div class="col-md-10">
+                  {% for i in  article %}
+                  <div class="card" >
+                     <div class="row">
+                        <div class="col-md-3">
+                           <img src="{{ i.urlToImage }}" class="img" style="height: 200px; width:270px">
+                        </div>
+                        <div class="col-md-9">
+                           <div class="card-body">
+                              <h5 class="card-title">{{i.title}}</h5>
+                              <p class="card-text" style="color:grey">{{i.description}}</p>
+                              {% if i.source.name == None %}
+                              <h6></h6>
+                              {% else %}
+                              <h6>Written by {{i.source.name}}</h6>
+                              {% endif %}
+                              <div>
+                                 <div class="col-md-3">
+                                    <a href="{{ i.url }}" target="_blank">
+                                       <h6>Reach out</h6>
+                                    </a>
+                                 </div>
+                                 <div class="col-md-9">
+                                    <h6>{{ i.publishedAt}} </h6>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <br>
+                  {% endfor %}
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>
